@@ -70,6 +70,18 @@
         "500": { "value": "#12a89e", "type": "color" },
         "600": { "value": "#0e867e", "type": "color" },
         "700": { "value": "#0a655f", "type": "color" }
+      },
+      "gold": {
+        "50":  { "value": "#fffbe6", "type": "color" },
+        "100": { "value": "#fff3b0", "type": "color" },
+        "200": { "value": "#ffe866", "type": "color" },
+        "300": { "value": "#ffdd00", "type": "color" },
+        "400": { "value": "#e8be00", "type": "color" },
+        "500": { "value": "#c99f00", "type": "color" },
+        "600": { "value": "#a37e00", "type": "color" },
+        "700": { "value": "#7d5f00", "type": "color" },
+        "800": { "value": "#574000", "type": "color" },
+        "900": { "value": "#322400", "type": "color" }
       }
     }
   }

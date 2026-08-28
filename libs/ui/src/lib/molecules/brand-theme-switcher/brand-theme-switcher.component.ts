@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { BrandThemeService, type Brand } from '@brand/theme';
+import { BRAND_LABELS, BrandThemeService, type Brand } from '@brand/theme';
 
 /**
  * Demo / Storybook control that drives {@link BrandThemeService}. Proves the
@@ -25,7 +25,7 @@ import { BrandThemeService, type Brand } from '@brand/theme';
           aria-labelledby="ds-switcher-brand-label"
         >
           @for (b of theme.availableBrands; track b) {
-            <nz-option [nzValue]="b" [nzLabel]="titleCase(b)" />
+            <nz-option [nzValue]="b" [nzLabel]="label(b)" />
           }
         </nz-select>
       </div>
@@ -111,7 +111,7 @@ export class DsBrandThemeSwitcherComponent {
     this.theme.setBrand(brand);
   }
 
-  protected titleCase(value: string): string {
-    return value.charAt(0).toUpperCase() + value.slice(1);
+  protected label(brand: Brand): string {
+    return BRAND_LABELS[brand];
   }
 }

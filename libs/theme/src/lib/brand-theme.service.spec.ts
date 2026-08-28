@@ -15,18 +15,18 @@ describe('BrandThemeService', () => {
     TestBed.configureTestingModule({});
   });
 
-  it('defaults to the konica brand and light scheme', () => {
+  it('defaults to brand-1 and light scheme', () => {
     const service = TestBed.inject(BrandThemeService);
-    expect(service.brand()).toBe('konica');
+    expect(service.brand()).toBe('brand-1');
     expect(service.isDark()).toBe(false);
   });
 
   it('reflects the brand onto <html> and persists it', () => {
     const service = TestBed.inject(BrandThemeService);
-    service.setBrand('aurora');
+    service.setBrand('brand-2');
     flush();
-    expect(document.documentElement.dataset['brand']).toBe('aurora');
-    expect(localStorage.getItem('ds.brand')).toBe('aurora');
+    expect(document.documentElement.dataset['brand']).toBe('brand-2');
+    expect(localStorage.getItem('ds.brand')).toBe('brand-2');
   });
 
   it('toggles the colour scheme', () => {
@@ -38,8 +38,8 @@ describe('BrandThemeService', () => {
   });
 
   it('restores a persisted brand on construction', () => {
-    localStorage.setItem('ds.brand', 'aurora');
+    localStorage.setItem('ds.brand', 'brand-2');
     const service = TestBed.inject(BrandThemeService);
-    expect(service.brand()).toBe('aurora');
+    expect(service.brand()).toBe('brand-2');
   });
 });

@@ -1,19 +1,33 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { DsBrandThemeSwitcherComponent, DsTextComponent } from '@brand/ui';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterOutlet, DsBrandThemeSwitcherComponent, DsTextComponent],
+  imports: [
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive,
+    DsBrandThemeSwitcherComponent,
+    DsTextComponent,
+  ],
   template: `
     <div class="shell">
       <header class="shell__bar">
         <div class="shell__brand">
           <span class="shell__mark" aria-hidden="true"></span>
-          <ds-text variant="title-sm" element="span">Brand Console</ds-text>
+          <ds-text variant="title-sm" element="span">Compliance Console</ds-text>
         </div>
+
+        <nav class="shell__nav">
+          <a routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }">
+            Case queue
+          </a>
+          <a routerLink="/devices" routerLinkActive="is-active">Devices</a>
+        </nav>
+
         <ds-brand-theme-switcher />
       </header>
       <main class="shell__main">
@@ -30,8 +44,7 @@ import { DsBrandThemeSwitcherComponent, DsTextComponent } from '@brand/ui';
       .shell__bar {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        gap: var(--ds-space-5);
+        gap: var(--ds-space-6);
         padding: var(--ds-space-4) var(--ds-space-6);
         background: var(--ds-color-bg-surface);
         border-bottom: var(--ds-border-width-hair) solid var(--ds-color-border-subtle);
@@ -53,6 +66,27 @@ import { DsBrandThemeSwitcherComponent, DsTextComponent } from '@brand/ui';
           var(--ds-color-action-primary),
           var(--ds-color-brand-400)
         );
+      }
+      .shell__nav {
+        display: flex;
+        gap: var(--ds-space-2);
+        margin-right: auto;
+      }
+      .shell__nav a {
+        padding: var(--ds-space-2) var(--ds-space-4);
+        border-radius: var(--ds-radius-sm);
+        font-size: var(--ds-font-size-sm);
+        font-weight: var(--ds-font-weight-medium);
+        color: var(--ds-color-text-secondary);
+        text-decoration: none;
+      }
+      .shell__nav a:hover {
+        background: var(--ds-color-bg-hover);
+        color: var(--ds-color-text-primary);
+      }
+      .shell__nav a.is-active {
+        background: var(--ds-color-action-primary-subtle);
+        color: var(--ds-color-text-primary);
       }
     `,
   ],

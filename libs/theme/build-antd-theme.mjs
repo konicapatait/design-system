@@ -11,7 +11,7 @@
  * pipeline does not expose. Compiling here keeps the "tokens drive the
  * ng-zorro Less variables" contract intact for every consumer.
  *
- * Runtime brand switching (konica <-> aurora) still happens purely through
+ * Runtime brand switching (brand-1 <-> brand-2 <-> brand-3) still happens purely through
  * the CSS custom properties in `@brand/tokens/css`, layered over this
  * baseline; this file only bakes the parts of ng-zorro's chrome that its
  * Less pipeline computes rather than reads from a CSS variable.

@@ -24,6 +24,9 @@ jobs:
 
       - run: npm ci
 
+      - name: Agent instructions in sync
+        run: npm run check:agents
+
       - name: Derive affected base/head
         uses: nrwl/nx-set-shas@v4
 

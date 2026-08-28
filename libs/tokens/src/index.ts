@@ -12,10 +12,10 @@
  * Applications import `@brand/tokens/css` once at bootstrap; components should
  * only ever read `var(--ds-*)`, never hard-coded values.
  */
-export type Brand = 'konica' | 'aurora';
+export type Brand = 'brand-1' | 'brand-2' | 'brand-3';
 export type ColorScheme = 'light' | 'dark';
 
-export const BRANDS: readonly Brand[] = ['konica', 'aurora'] as const;
+export const BRANDS: readonly Brand[] = ['brand-1', 'brand-2', 'brand-3'] as const;
 export const COLOR_SCHEMES: readonly ColorScheme[] = ['light', 'dark'] as const;
 
 /** CSS custom-property prefix shared by every generated token. */

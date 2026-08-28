@@ -1,0 +1,33 @@
+{
+  "color": {
+    "brand": {
+      "50":  { "value": "{color.palette.gold.50}",  "type": "color" },
+      "100": { "value": "{color.palette.gold.100}", "type": "color" },
+      "200": { "value": "{color.palette.gold.200}", "type": "color" },
+      "300": { "value": "{color.palette.gold.300}", "type": "color" },
+      "400": { "value": "{color.palette.gold.400}", "type": "color" },
+      "500": { "value": "{color.palette.gold.500}", "type": "color" },
+      "600": { "value": "{color.palette.gold.600}", "type": "color" },
+      "700": { "value": "{color.palette.gold.700}", "type": "color" },
+      "800": { "value": "{color.palette.gold.800}", "type": "color" },
+      "900": { "value": "{color.palette.gold.900}", "type": "color" }
+    },
+    "action": {
+      "primary":         { "value": "{color.palette.gold.300}", "type": "color" },
+      "primary-hover":   { "value": "{color.palette.gold.400}", "type": "color" },
+      "primary-active":  { "value": "{color.palette.gold.500}", "type": "color" },
+      "primary-contrast":{ "value": "{color.palette.neutral.950}", "type": "color" },
+      "primary-subtle":  { "value": "{color.palette.gold.50}", "type": "color" }
+    },
+    "text": {
+      "link":       { "value": "{color.palette.neutral.900}", "type": "color" },
+      "link-hover": { "value": "{color.palette.gold.700}", "type": "color" }
+    },
+    "border": {
+      "focus": { "value": "{color.palette.gold.500}", "type": "color" }
+    }
+  },
+  "focus": {
+    "ring-color": { "value": "{color.palette.gold.200}", "type": "color" }
+  }
+}

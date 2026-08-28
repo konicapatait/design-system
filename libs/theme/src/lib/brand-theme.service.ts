@@ -13,6 +13,7 @@ import {
   type Brand,
   type ColorScheme,
 } from './brand.types';
+import { BRAND_THEME_DEFAULTS } from './brand-theme.config';
 
 const BRAND_STORAGE_KEY = 'ds.brand';
 const SCHEME_STORAGE_KEY = 'ds.color-scheme';
@@ -27,6 +28,7 @@ const SCHEME_STORAGE_KEY = 'ds.color-scheme';
 @Injectable({ providedIn: 'root' })
 export class BrandThemeService {
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+  private readonly defaults = inject(BRAND_THEME_DEFAULTS, { optional: true }) ?? {};
 
   readonly brand = signal<Brand>(this.readBrand());
   readonly colorScheme = signal<ColorScheme>(this.readColorScheme());
@@ -65,13 +67,19 @@ export class BrandThemeService {
 
   private readBrand(): Brand {
     const stored = this.read(BRAND_STORAGE_KEY);
-    return isBrand(stored) ? stored : 'konica';
+    if (isBrand(stored)) {
+      return stored;
+    }
+    return this.defaults.brand ?? 'brand-1';
   }
 
   private readColorScheme(): ColorScheme {
     const stored = this.read(SCHEME_STORAGE_KEY);
     if (isColorScheme(stored)) {
       return stored;
+    }
+    if (this.defaults.colorScheme) {
+      return this.defaults.colorScheme;
     }
     if (
       this.isBrowser &&

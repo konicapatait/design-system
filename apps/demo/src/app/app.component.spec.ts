@@ -16,6 +16,7 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.shell__bar')).toBeTruthy();
-    expect(compiled.textContent).toContain('Brand Console');
+    expect(compiled.textContent).toContain('Compliance Console');
+    expect(compiled.querySelector('.shell__nav')).toBeTruthy();
   });
 });

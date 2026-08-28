@@ -23,7 +23,11 @@ apps/demo       one composed screen assembled entirely from @brand/ui
 | `libs/tokens` | `@brand/tokens` | Token source JSON + `nx build tokens` (Style Dictionary). Emits `generated/{css,less,scss,ts,json}`. |
 | `libs/theme` | `@brand/theme` | `BrandThemeService` / `provideBrandTheme()`, `base.css`, `ng-zorro-tokens.css`, and `nx run theme:styles` which compiles ng-zorro's Less with the tokens as variable overrides. |
 | `libs/ui` | `@brand/ui` | The component library. Publishable via `nx build ui` (ng-packagr). |
-| `apps/demo` | — | Demo app / reference screen. `nx serve demo`. |
+| `apps/demo` | — | Demo app. `nx serve demo`. Two screens: **`/`** — a *Compliance case queue* (`ComplianceComponent`); **`/devices`** — a *Devices dashboard* (`DashboardComponent`). It ships with `provideBrandTheme({ brand: 'brand-3' })`. |
+
+Three brands ship as placeholders to prove multi-brand: **`brand-1`** (blue),
+**`brand-2`** (violet), **`brand-3`** (yellow `#ffdd00` on black). Switch live from
+the header control or the Storybook toolbar.
 
 ## How branding works
 
@@ -33,10 +37,11 @@ apps/demo       one composed screen assembled entirely from @brand/ui
    block per brand × scheme:
 
    ```css
-   :root { --ds-color-action-primary: #0067b1; }              /* konica, light */
-   [data-brand="aurora"] { --ds-color-action-primary: #5a1fb8; }
+   :root { --ds-color-action-primary: #0067b1; }                  /* brand-1, light */
+   [data-brand="brand-2"] { --ds-color-action-primary: #5a1fb8; }
+   [data-brand="brand-3"] { --ds-color-action-primary: #ffdd00; }
    :root[data-theme="dark"] { --ds-color-action-primary: #2f7ed1; }
-   [data-brand="aurora"][data-theme="dark"] { … }
+   [data-brand="brand-3"][data-theme="dark"] { … }
    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { … } }
    ```
 
@@ -92,8 +97,8 @@ providers: [
 
 ## Replacing the placeholder tokens with Figma values
 
-The token values in `libs/tokens/src/` are placeholders (a Konica-style blue
-`konica` brand + a violet `aurora` brand to demonstrate multi-brand). To wire the
+The token values in `libs/tokens/src/` are placeholders (`brand-1` blue, `brand-2`
+violet, `brand-3` yellow/black — enough to demonstrate multi-brand). To wire the
 real design:
 
 1. Connect the **Figma Dev Mode MCP server** (`claude mcp add --transport sse

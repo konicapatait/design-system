@@ -15,5 +15,9 @@
  */
 export { BrandThemeService } from './lib/brand-theme.service';
 export { provideBrandTheme } from './lib/brand-theme.providers';
-export { BRANDS, COLOR_SCHEMES } from './lib/brand.types';
+export {
+  BRAND_THEME_DEFAULTS,
+  type BrandThemeDefaults,
+} from './lib/brand-theme.config';
+export { BRANDS, BRAND_LABELS, COLOR_SCHEMES } from './lib/brand.types';
 export type { Brand, ColorScheme } from './lib/brand.types';

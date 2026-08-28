@@ -5,7 +5,7 @@
  * `generated/antd-dark.css` patches the deep chrome under [data-theme="dark"].
  * This hand-authored layer sits on top and re-points the handful of
  * ng-zorro classes we actually surface at `--ds-*` custom properties, so they
- * follow BOTH a brand switch (konica <-> aurora) and a colour-scheme switch
+ * follow BOTH a brand switch (brand-1 / brand-2 / brand-3) and a colour-scheme switch
  * with no rebuild — the same contract as the `@brand/ui` components.
  *
  * Load order in an app: tokens.css -> antd.css -> antd-dark.css -> this -> base.css

@@ -42,7 +42,7 @@ const icons = [
 ];
 
 const withBrandTheme: Decorator = (story, context) => {
-  const brand = context.globals['brand'] ?? 'konica';
+  const brand = context.globals['brand'] ?? 'brand-1';
   const scheme = context.globals['scheme'] ?? 'light';
   const root = document.documentElement;
   root.dataset['brand'] = brand;
@@ -61,13 +61,14 @@ const preview: Preview = {
   globalTypes: {
     brand: {
       description: 'Active brand',
-      defaultValue: 'konica',
+      defaultValue: 'brand-1',
       toolbar: {
         title: 'Brand',
         icon: 'paintbrush',
         items: [
-          { value: 'konica', title: 'Konica' },
-          { value: 'aurora', title: 'Aurora' },
+          { value: 'brand-1', title: 'Brand 1' },
+          { value: 'brand-2', title: 'Brand 2' },
+          { value: 'brand-3', title: 'Brand 3' },
         ],
         dynamicTitle: true,
       },

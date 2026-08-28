@@ -2,7 +2,10 @@
   "name": "@design-system/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "sync:agents": "node scripts/sync-agent-instructions.mjs",
+    "check:agents": "node scripts/sync-agent-instructions.mjs --check"
+  },
   "private": true,
   "devDependencies": {
     "@angular-devkit/build-angular": "~19.2.0",

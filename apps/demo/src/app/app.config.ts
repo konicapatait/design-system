@@ -46,6 +46,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideNzI18n(en_US),
     provideNzIcons(icons),
-    provideBrandTheme(),
+    provideBrandTheme({ brand: 'brand-3' }),
   ],
 };

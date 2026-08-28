@@ -55,7 +55,7 @@ export const Scale: Story = {
         <ds-text variant="body" element="span">Body</ds-text>
         <ds-text variant="body-sm" element="span">Body small</ds-text>
         <ds-text variant="caption">Caption</ds-text>
-        <ds-text variant="code">const brand = 'konica';</ds-text>
+        <ds-text variant="code">const brand = 'brand-1';</ds-text>
       </div>
     `,
   }),

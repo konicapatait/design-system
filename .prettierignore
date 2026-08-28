@@ -4,3 +4,8 @@
 /.nx/cache
 /.nx/workspace-data
 .angular
+
+# Generated agent instruction files (see scripts/sync-agent-instructions.mjs)
+.github/copilot-instructions.md
+.github/instructions/
+.github/prompts/

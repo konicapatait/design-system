@@ -5,7 +5,7 @@
 ```
 core/        primitive palette, spacing/radius scale, type scale, effects   (raw values)
 semantic/    role tokens — color.action.*, color.text.*, color.bg.*, …      (reference core)
-brand/       konica.json, aurora.json — remap the brand ramp + a few roles  (reference core)
+brand/       brand-1.json, brand-2.json, brand-3.json — remap the brand ramp + a few roles
 theme/       dark.json — overrides for surfaces / text / borders in dark    (reference core/semantic)
 ```
 
@@ -34,7 +34,7 @@ and emits `libs/tokens/generated/`:
 3. The matching block in `tokens.css` wins the cascade, so every `var(--ds-*)`
    resolves to the new value. **No component re-renders.**
 
-Specificity is deliberate: `[data-brand="aurora"][data-theme="dark"]` (0,2,0)
+Specificity is deliberate: `[data-brand="brand-2"][data-theme="dark"]` (0,2,0)
 is emitted after `:root[data-theme="dark"]` (0,2,0) so it wins on order; the
 `@media` fallback is scoped `:not([data-theme])` so it never fights an explicit
 choice.
