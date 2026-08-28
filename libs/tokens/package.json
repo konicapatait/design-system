@@ -1,0 +1,23 @@
+{
+  "name": "@brand/tokens",
+  "version": "0.0.1",
+  "description": "Design tokens (Style Dictionary) for the brand design system.",
+  "sideEffects": [
+    "*.css"
+  ],
+  "main": "./generated/ts/tokens.mjs",
+  "types": "./generated/ts/tokens.d.ts",
+  "exports": {
+    ".": {
+      "types": "./generated/ts/tokens.d.ts",
+      "default": "./generated/ts/tokens.mjs"
+    },
+    "./css": "./generated/css/tokens.css",
+    "./less": "./generated/less/_tokens.less",
+    "./scss": "./generated/scss/_tokens.scss",
+    "./json": "./generated/json/tokens.json"
+  },
+  "files": [
+    "generated"
+  ]
+}

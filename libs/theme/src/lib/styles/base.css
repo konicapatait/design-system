@@ -1,0 +1,74 @@
+/*
+ * @brand/theme — base element styles.
+ *
+ * Load order in an app:
+ *   1. @brand/tokens/css            (the --ds-* custom properties, per brand + theme)
+ *   2. @brand/theme generated/antd.css   (ng-zorro, re-skinned from the tokens via Less)
+ *   3. this file                    (element defaults that read the tokens)
+ *   4. the app's own styles
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-md);
+  line-height: var(--ds-font-line-height-normal);
+  color: var(--ds-color-text-primary);
+  background-color: var(--ds-color-bg-canvas);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition:
+    background-color var(--ds-motion-duration-base) var(--ds-motion-easing-standard),
+    color var(--ds-motion-duration-base) var(--ds-motion-easing-standard);
+}
+
+:where(a) {
+  color: var(--ds-color-text-link);
+  text-decoration: none;
+}
+
+:where(a:hover) {
+  color: var(--ds-color-text-link-hover);
+}
+
+:where(h1, h2, h3, h4, h5, h6) {
+  margin: 0 0 var(--ds-space-4);
+  color: var(--ds-color-text-primary);
+  font-weight: var(--ds-font-weight-semibold);
+  line-height: var(--ds-font-line-height-tight);
+}
+
+:where(code, kbd, samp, pre) {
+  font-family: var(--ds-font-family-mono);
+}
+
+/* Visible, token-driven focus ring for keyboard users across the system. */
+:where(:focus-visible) {
+  outline: var(--ds-border-width-thick) solid var(--ds-color-border-focus);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

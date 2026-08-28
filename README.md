@@ -1,96 +1,117 @@
-# DesignSystem
+# Brand Design System (Angular · ng-zorro · atomic)
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+An Nx monorepo that turns **design tokens** into a **brand-customised, publishable
+Angular component library** on top of **ng-zorro-antd**. The atomic layering is:
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
-
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/intro#learn-nx?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
-
-## Run tasks
-
-To run tasks with Nx use:
-
-```sh
-npx nx <target> <project-name>
+```
+@brand/tokens   Style Dictionary — the single source of visual truth
+      │  (CSS custom properties + Less variables + TS)
+      ▼
+@brand/theme    runtime brand skin — BrandThemeService + ng-zorro Less compile
+      │
+      ▼
+@brand/ui       standalone atoms + molecules, painted only from --ds-* tokens
+      │
+      ▼
+apps/demo       one composed screen assembled entirely from @brand/ui
 ```
 
-For example:
+## Packages
 
-```sh
-npx nx build myproject
+| Path | Package | What it is |
+| --- | --- | --- |
+| `libs/tokens` | `@brand/tokens` | Token source JSON + `nx build tokens` (Style Dictionary). Emits `generated/{css,less,scss,ts,json}`. |
+| `libs/theme` | `@brand/theme` | `BrandThemeService` / `provideBrandTheme()`, `base.css`, `ng-zorro-tokens.css`, and `nx run theme:styles` which compiles ng-zorro's Less with the tokens as variable overrides. |
+| `libs/ui` | `@brand/ui` | The component library. Publishable via `nx build ui` (ng-packagr). |
+| `apps/demo` | — | Demo app / reference screen. `nx serve demo`. |
+
+## How branding works
+
+1. **Tokens** are authored under `libs/tokens/src/` in layers — `core/` primitives →
+   `semantic/` roles (`color.action.primary`, …) → `brand/<name>.json` overrides →
+   `theme/dark.json`. `nx build tokens` produces one `tokens.css` with a selector
+   block per brand × scheme:
+
+   ```css
+   :root { --ds-color-action-primary: #0067b1; }              /* konica, light */
+   [data-brand="aurora"] { --ds-color-action-primary: #5a1fb8; }
+   :root[data-theme="dark"] { --ds-color-action-primary: #2f7ed1; }
+   [data-brand="aurora"][data-theme="dark"] { … }
+   @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { … } }
+   ```
+
+2. **`@brand/ui` components** never hard-code a colour — every value is
+   `var(--ds-*)`. So switching brand/scheme is just toggling `data-brand` /
+   `data-theme` on `<html>`; nothing re-renders.
+
+3. **ng-zorro's own chrome** is handled two ways:
+   - `nx run theme:styles` compiles `ng-zorro-antd.less` with the tokens injected
+     as Less `modifyVars` → `generated/antd.css` (light baseline) and
+     `generated/antd-dark.css` (scoped `[data-theme="dark"]`). Compiled here, not
+     by the Angular builder, because Ant Design v4's Less needs
+     `javascriptEnabled: true`.
+   - `ng-zorro-tokens.css` re-points the ng-zorro surfaces the design system
+     exposes (select, table, pagination, popovers) back at `--ds-*` so they also
+     follow a **brand** switch at runtime.
+
+4. `BrandThemeService` (signals) is the single source of truth for the active
+   brand + scheme, mirrors them onto `<html>`, and persists the choice.
+
+## Quick start
+
+```bash
+npm install
+npx nx run-many -t build          # tokens → theme → ui → demo
+npx nx serve demo                 # http://localhost:4200
+npx nx storybook ui               # component explorer, brand/scheme in the toolbar
+npx nx run-many -t test lint
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+## Wiring an app
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Add new projects
-
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-To install a new plugin you can use the `nx add` command. Here's an example of adding the React plugin:
-```sh
-npx nx add @nx/react
+```ts
+// app.config.ts
+providers: [
+  provideAnimations(),
+  provideNzI18n(en_US),
+  provideNzIcons(icons),
+  provideBrandTheme(),          // from @brand/theme
+]
 ```
 
-Use the plugin's generator to create new projects. For example, to create a new React app or library:
-
-```sh
-# Generate an app
-npx nx g @nx/react:app demo
-
-# Generate a library
-npx nx g @nx/react:lib some-lib
+```jsonc
+// project.json — styles, in this order
+"styles": [
+  "libs/tokens/generated/css/tokens.css",
+  "libs/theme/generated/antd.css",
+  "libs/theme/generated/antd-dark.css",
+  "libs/theme/src/lib/styles/ng-zorro-tokens.css",
+  "libs/theme/src/lib/styles/base.css"
+]
 ```
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+## Replacing the placeholder tokens with Figma values
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+The token values in `libs/tokens/src/` are placeholders (a Konica-style blue
+`konica` brand + a violet `aurora` brand to demonstrate multi-brand). To wire the
+real design:
 
-## Set up CI!
+1. Connect the **Figma Dev Mode MCP server** (`claude mcp add --transport sse
+   figma-dev-mode http://127.0.0.1:3845/sse`) or use the Figma REST API.
+2. Pull the variable collections and map them onto the **existing token paths**
+   in `libs/tokens/src/**` (keep the paths; change the values).
+3. `nx build tokens` — every downstream package and Storybook updates.
 
-### Step 1
+## Components
 
-To connect to Nx Cloud, run the following command:
+Atoms: `ds-button` `ds-icon` `ds-spinner` `ds-tag` `ds-text` `ds-input` `ds-select`
+Molecules: `ds-form-field` `ds-card` `ds-alert` `ds-brand-theme-switcher`
 
-```sh
-npx nx connect
-```
+Every component is `standalone`, `OnPush`, uses signal `input()` / `output()`,
+exposes variants via `data-*` host attributes, and — where it is a form control —
+implements `ControlValueAccessor`. `ds-button` is the reference implementation.
 
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
+## Release
 
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-### Step 2
-
-Use the following command to configure a CI workflow for your workspace:
-
-```sh
-npx nx g ci-workflow
-```
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/intro#learn-nx?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+`nx release` versions and publishes `@brand/tokens`, `@brand/theme`, `@brand/ui`
+(conventional commits; `preVersionCommand` runs `nx run-many -t build`).

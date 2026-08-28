@@ -40,3 +40,9 @@ Thumbs.db
 
 .nx/cache
 .nx/workspace-data
+
+.angular
+
+# Design-system generated token / theme artifacts
+/libs/tokens/generated
+/libs/theme/generated

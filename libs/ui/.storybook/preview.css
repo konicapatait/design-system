@@ -1,0 +1,11 @@
+/* Storybook canvas picks up the design tokens so brand / theme switches are visible. */
+.sb-show-main,
+.docs-story {
+  background: var(--ds-color-bg-canvas) !important;
+  color: var(--ds-color-text-primary);
+}
+
+.ds-sb-frame {
+  padding: 24px;
+  font-family: var(--ds-font-family-base);
+}

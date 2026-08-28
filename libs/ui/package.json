@@ -1,0 +1,12 @@
+{
+  "name": "@brand/ui",
+  "version": "0.0.1",
+  "description": "Atomic Angular component library (ng-zorro base, brand tokens).",
+  "peerDependencies": {
+    "@angular/core": "^19.2.0",
+    "@angular/forms": "^19.2.0",
+    "@brand/theme": "^0.0.1",
+    "ng-zorro-antd": "^19.0.0"
+  },
+  "sideEffects": false
+}

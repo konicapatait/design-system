@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Derive affected base/head
+        uses: nrwl/nx-set-shas@v4
+
+      - name: Lint / test / build (affected)
+        run: npx nx affected -t lint test build --parallel=3
+
+      - name: Build Storybook
+        run: npx nx run ui:build-storybook
+
+      - name: Publishable package sanity
+        run: |
+          npx nx build ui
+          test -f dist/libs/ui/package.json
+          node -e "const p=require('./dist/libs/ui/package.json'); if(!p.peerDependencies['ng-zorro-antd']) { throw new Error('ng-zorro-antd must remain a peer dependency'); }"

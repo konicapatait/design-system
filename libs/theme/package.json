@@ -1,0 +1,12 @@
+{
+  "name": "@brand/theme",
+  "version": "0.0.1",
+  "description": "Runtime brand skin: BrandThemeService + token-driven ng-zorro Less compile.",
+  "peerDependencies": {
+    "@angular/common": "^19.2.0",
+    "@angular/core": "^19.2.0"
+  },
+  "sideEffects": [
+    "*.css"
+  ]
+}

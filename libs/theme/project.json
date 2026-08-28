@@ -1,0 +1,66 @@
+{
+  "name": "theme",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/theme/src",
+  "prefix": "ds",
+  "projectType": "library",
+  "release": {
+    "version": {
+      "generatorOptions": {
+        "packageRoot": "dist/{projectRoot}",
+        "currentVersionResolver": "git-tag",
+        "fallbackCurrentVersionResolver": "disk"
+      }
+    }
+  },
+  "tags": [],
+  "targets": {
+    "styles": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "dependsOn": [{ "projects": ["tokens"], "target": "build" }],
+      "inputs": [
+        "{projectRoot}/build-antd-theme.mjs",
+        "{workspaceRoot}/libs/tokens/generated/json/tokens.json",
+        { "externalDependencies": ["less", "ng-zorro-antd"] }
+      ],
+      "outputs": ["{projectRoot}/generated"],
+      "options": {
+        "cwd": "libs/theme",
+        "command": "node build-antd-theme.mjs"
+      }
+    },
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "dependsOn": ["styles"],
+      "options": {
+        "project": "libs/theme/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/theme/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/theme/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/theme/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

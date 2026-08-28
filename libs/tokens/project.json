@@ -1,0 +1,32 @@
+{
+  "name": "tokens",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/tokens/src",
+  "projectType": "library",
+  "tags": ["scope:foundation", "type:tokens"],
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "inputs": [
+        "{projectRoot}/src/**/*.json",
+        "{projectRoot}/style-dictionary.config.mjs"
+      ],
+      "outputs": ["{projectRoot}/generated"],
+      "options": {
+        "cwd": "libs/tokens",
+        "command": "node style-dictionary.config.mjs"
+      }
+    },
+    "clean": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/tokens",
+        "command": "rm -rf generated"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

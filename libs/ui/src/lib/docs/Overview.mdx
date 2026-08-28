@@ -1,0 +1,38 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Foundations/Overview" />
+
+# Brand Design System
+
+A brand-customised Angular component library built on **ng-zorro-antd**, driven
+end to end by **design tokens**.
+
+## The layers
+
+| Package | Responsibility |
+| --- | --- |
+| `@brand/tokens` | Style Dictionary. Token source JSON → `tokens.css` (one selector block per brand × scheme), `_tokens.less`, `tokens.mjs`. |
+| `@brand/theme` | `BrandThemeService` (the active brand + scheme, mirrored to `<html>`), the ng-zorro Less compile, `base.css`, `ng-zorro-tokens.css`. |
+| `@brand/ui` | The atoms + molecules. Every value is `var(--ds-*)`. |
+
+## Why it re-skins at runtime
+
+Switching brand or colour scheme only sets `data-brand` / `data-theme` on
+`<html>`. That swaps which block of CSS custom properties is in effect; nothing
+re-renders. Try the **Brand** and **Scheme** controls in the toolbar — every
+story, including the raw `nz-table` in the demo, follows.
+
+## Atomic rules for contributors
+
+- `standalone: true`, `ChangeDetectionStrategy.OnPush`.
+- Signal `input()` / `output()`. No `@Input`/`@Output` decorators.
+- Variants are `data-*` **host attributes**, styled with `:host([data-x='y'])`.
+- **No hard-coded values** — only `var(--ds-*)`. If a token is missing, add it to
+  `libs/tokens/src/` rather than hard-coding.
+- Form controls implement `ControlValueAccessor`.
+- Wrap ng-zorro where its behaviour/a11y is worth reusing (`ds-select`); build
+  natively where ng-zorro's compiled styles would fight runtime theming
+  (`ds-button`).
+- Co-locate `*.stories.ts` and `*.spec.ts` with the component.
+
+`ds-button` is the reference implementation.

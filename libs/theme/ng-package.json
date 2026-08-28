@@ -1,0 +1,12 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/libs/theme",
+  "assets": [
+    "./generated/antd.css",
+    "./generated/antd-dark.css",
+    "./src/lib/styles/base.css"
+  ],
+  "lib": {
+    "entryFile": "src/index.ts"
+  }
+}
