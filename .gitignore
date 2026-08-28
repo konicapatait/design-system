@@ -46,3 +46,6 @@ Thumbs.db
 # Design-system generated token / theme artifacts
 /libs/tokens/generated
 /libs/theme/generated
+
+# Figma sync — local snapshot (fixtures + config are committed)
+/.figma/snapshot.json

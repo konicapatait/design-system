@@ -4,7 +4,11 @@
   "license": "MIT",
   "scripts": {
     "sync:agents": "node scripts/sync-agent-instructions.mjs",
-    "check:agents": "node scripts/sync-agent-instructions.mjs --check"
+    "check:agents": "node scripts/sync-agent-instructions.mjs --check",
+    "figma:pull": "node scripts/figma-tokens.mjs pull",
+    "figma:diff": "node scripts/figma-tokens.mjs diff",
+    "figma:apply": "node scripts/figma-tokens.mjs apply",
+    "figma:verify": "node scripts/figma-tokens.mjs verify"
   },
   "private": true,
   "devDependencies": {

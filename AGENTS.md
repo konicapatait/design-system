@@ -112,6 +112,58 @@ npm run sync:agents                        # regenerate the Copilot files from A
 - The build `styles` order is fixed: `tokens.css` → `antd.css` → `antd-dark.css`
   → `ng-zorro-tokens.css` → `base.css` → app styles.
 
+## Figma → tokens & components
+<!-- copilot:applyTo=libs/tokens/**,libs/ui/**,apps/demo/**,.figma/** -->
+
+Figma is the source of truth for token **values**; the repo owns token **names**,
+structure, and every reference/alias. The driver is `scripts/figma-tokens.mjs`
+(also `npm run figma:*`), documented by the `figma-tokens` skill.
+
+**Never let a Figma pull silently overwrite an existing token.** Workflow:
+
+1. `node scripts/figma-tokens.mjs diff` — classifies every incoming variable as
+   `ok` / `add` / `change` / `remove` / `rename?` / `naming`. Exit **2** means
+   conflicts or blocking naming issues.
+2. `node scripts/figma-tokens.mjs apply` — writes **only additive** tokens.
+   `change` / `remove` / `rename?` are held back and printed.
+3. For each held-back item, **show the user the old → new value and get explicit
+   confirmation.** Only then re-run with `--accept <token.path,…>` for the exact
+   paths they approved.
+4. `npx nx build tokens && node scripts/figma-tokens.mjs verify` — rebuilds,
+   asserts every non-conflicting Figma value landed in `tokens.css`, runs
+   `tokens` / `theme` / `ui` tests.
+5. Verify the components: `npx nx serve demo` → **`/tokens`** (the Token Lab
+   page) and screenshot it. Every token + component must still look right in all
+   three brands and both schemes.
+
+**Naming convention** (enforced by the driver):
+
+- Figma variable names are `group/sub/leaf`, each segment **lower-kebab-case**
+  (`color/action/primary-hover`). Capitals, spaces, `camelCase`, `_` → flagged.
+- The path must sit under a known role namespace (`color.action.*`,
+  `color.text.*`, `color.bg.*`, `color.border.*`, `color.feedback.*`,
+  `color.brand.*`, `space.*`, `radius.*`, `font.*`, `elevation.*`, `motion.*`,
+  `size.*`, `z-index.*`, `focus.*`). Unknown namespace → flagged.
+- Group-name differences map through `nameAliases` in
+  `.figma/figma-tokens.config.json` (e.g. `spacing` → `space`); prefer fixing
+  the name in Figma over adding an alias.
+- Primitive palette (`color.palette.*`) is review-only — the driver never
+  auto-changes it.
+
+**Figma → component:** load the `figma-design-to-code` skill before
+`get_design_context`; reuse existing `@brand/ui` atoms and `--ds-*` tokens, never
+hard-code. `node scripts/figma-tokens.mjs scaffold-component <Name>` creates the
+standard triplet (component + stories + spec). Then add it to the Token Lab page
+and run `verify`.
+
+**Test data:** page-level stubs live next to the page
+(`apps/demo/src/app/pages/*/*.fixtures.ts`), typed against the real `@brand/ui`
+types. Add a stub there rather than inlining mock data in a template.
+
+**Offline:** with no `FIGMA_TOKEN` / `FIGMA_FILE_KEY` the driver falls back to
+`.figma/fixtures/variables.local.sample.json` — keep that fixture exercising
+every diff class.
+
 ## Keeping agent docs in sync
 
 Edit **only** `AGENTS.md` and `.claude/skills/*/SKILL.md`. Then:

@@ -1,0 +1,68 @@
+{
+  "$comment": "Config for scripts/figma-tokens.mjs. Keep this in sync with libs/tokens/src naming.",
+
+  "collections": ["Semantic", "Scale", "Primitives", "Tokens"],
+
+  "nameAliases": {
+    "spacing": "space",
+    "colours": "color",
+    "colors": "color",
+    "typography": "font",
+    "type": "font",
+    "shadow": "elevation",
+    "elevations": "elevation",
+    "z": "z-index"
+  },
+
+  "dimensionNamespaces": [
+    "space",
+    "radius",
+    "size",
+    "border.width",
+    "font.size",
+    "font.line-height",
+    "font.letter-spacing",
+    "focus.ring-width"
+  ],
+
+  "roleNamespaces": [
+    "color.palette",
+    "color.brand",
+    "color.action",
+    "color.text",
+    "color.bg",
+    "color.border",
+    "color.feedback",
+    "space",
+    "radius",
+    "border.width",
+    "size.control",
+    "size.icon",
+    "font.family",
+    "font.weight",
+    "font.size",
+    "font.line-height",
+    "font.letter-spacing",
+    "elevation",
+    "motion.duration",
+    "motion.easing",
+    "z-index",
+    "focus"
+  ],
+
+  "writeTargets": [
+    ["color.palette.", "core/color.json"],
+    ["color.", "semantic/color.json"],
+    ["space.", "core/dimension.json"],
+    ["radius.", "core/dimension.json"],
+    ["border.width.", "core/dimension.json"],
+    ["size.", "core/dimension.json"],
+    ["font.", "core/typography.json"],
+    ["elevation.", "core/effect.json"],
+    ["motion.", "core/effect.json"],
+    ["z-index.", "core/effect.json"],
+    ["focus.", "semantic/color.json"]
+  ],
+
+  "infoOnlyNamespaces": ["color.palette"]
+}

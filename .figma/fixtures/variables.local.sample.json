@@ -1,0 +1,119 @@
+{
+  "status": 200,
+  "error": false,
+  "meta": {
+    "_comment": "Stub of GET https://api.figma.com/v1/files/:key/variables/local — used by scripts/figma-tokens.mjs when FIGMA_TOKEN is not set. Shaped to exercise every diff class: ok / add / change(conflict) / remove(conflict) / naming.",
+    "variableCollections": {
+      "VariableCollectionId:1:1": {
+        "id": "VariableCollectionId:1:1",
+        "name": "Semantic",
+        "modes": [
+          { "modeId": "1:0", "name": "Light" },
+          { "modeId": "1:1", "name": "Dark" }
+        ],
+        "defaultModeId": "1:0",
+        "variableIds": [
+          "VariableID:2:1",
+          "VariableID:2:2",
+          "VariableID:2:3",
+          "VariableID:2:4"
+        ]
+      },
+      "VariableCollectionId:1:2": {
+        "id": "VariableCollectionId:1:2",
+        "name": "Scale",
+        "modes": [{ "modeId": "2:0", "name": "Value" }],
+        "defaultModeId": "2:0",
+        "variableIds": [
+          "VariableID:3:1",
+          "VariableID:3:2",
+          "VariableID:3:3",
+          "VariableID:3:4",
+          "VariableID:3:5",
+          "VariableID:3:6",
+          "VariableID:3:7"
+        ]
+      }
+    },
+    "variables": {
+      "VariableID:2:1": {
+        "id": "VariableID:2:1",
+        "name": "color/action/primary",
+        "resolvedType": "COLOR",
+        "variableCollectionId": "VariableCollectionId:1:1",
+        "valuesByMode": { "1:0": { "r": 0.0, "g": 0.4039, "b": 0.6941, "a": 1 } }
+      },
+      "VariableID:2:2": {
+        "id": "VariableID:2:2",
+        "name": "color/action/primary-strong",
+        "resolvedType": "COLOR",
+        "variableCollectionId": "VariableCollectionId:1:1",
+        "valuesByMode": { "1:0": { "r": 0.0, "g": 0.2902, "b": 0.5412, "a": 1 } }
+      },
+      "VariableID:2:3": {
+        "id": "VariableID:2:3",
+        "name": "color/text/link",
+        "resolvedType": "COLOR",
+        "variableCollectionId": "VariableCollectionId:1:1",
+        "valuesByMode": { "1:0": { "r": 0.0588, "g": 0.3843, "b": 0.7686, "a": 1 } }
+      },
+      "VariableID:2:4": {
+        "id": "VariableID:2:4",
+        "name": "color/Text/Link Hover",
+        "resolvedType": "COLOR",
+        "variableCollectionId": "VariableCollectionId:1:1",
+        "valuesByMode": { "1:0": { "r": 0.0, "g": 0.3176, "b": 0.549, "a": 1 } }
+      },
+
+      "VariableID:3:1": {
+        "id": "VariableID:3:1",
+        "name": "radius/none",
+        "resolvedType": "FLOAT",
+        "variableCollectionId": "VariableCollectionId:1:2",
+        "valuesByMode": { "2:0": 0 }
+      },
+      "VariableID:3:2": {
+        "id": "VariableID:3:2",
+        "name": "radius/sm",
+        "resolvedType": "FLOAT",
+        "variableCollectionId": "VariableCollectionId:1:2",
+        "valuesByMode": { "2:0": 4 }
+      },
+      "VariableID:3:3": {
+        "id": "VariableID:3:3",
+        "name": "radius/md",
+        "resolvedType": "FLOAT",
+        "variableCollectionId": "VariableCollectionId:1:2",
+        "valuesByMode": { "2:0": 10 }
+      },
+      "VariableID:3:4": {
+        "id": "VariableID:3:4",
+        "name": "radius/lg",
+        "resolvedType": "FLOAT",
+        "variableCollectionId": "VariableCollectionId:1:2",
+        "valuesByMode": { "2:0": 12 }
+      },
+      "VariableID:3:5": {
+        "id": "VariableID:3:5",
+        "name": "radius/pill",
+        "resolvedType": "FLOAT",
+        "variableCollectionId": "VariableCollectionId:1:2",
+        "valuesByMode": { "2:0": 999 }
+      },
+      "VariableID:3:6": {
+        "id": "VariableID:3:6",
+        "name": "radius/xl-2",
+        "resolvedType": "FLOAT",
+        "variableCollectionId": "VariableCollectionId:1:2",
+        "valuesByMode": { "2:0": 28 }
+      },
+      "VariableID:3:7": {
+        "id": "VariableID:3:7",
+        "name": "spacing/6",
+        "resolvedType": "FLOAT",
+        "variableCollectionId": "VariableCollectionId:1:2",
+        "valuesByMode": { "2:0": 20 }
+      }
+    }
+  }
+}

@@ -27,6 +27,12 @@ jobs:
       - name: Agent instructions in sync
         run: npm run check:agents
 
+      - name: Figma token driver smoke (fixture)
+        run: |
+          node --check scripts/figma-tokens.mjs
+          npx nx build tokens
+          node scripts/figma-tokens.mjs diff --from .figma/fixtures/variables.local.sample.json --json > /dev/null || test $? -eq 2
+
       - name: Derive affected base/head
         uses: nrwl/nx-set-shas@v4
 

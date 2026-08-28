@@ -26,6 +26,7 @@ import { DsBrandThemeSwitcherComponent, DsTextComponent } from '@brand/ui';
             Case queue
           </a>
           <a routerLink="/devices" routerLinkActive="is-active">Devices</a>
+          <a routerLink="/tokens" routerLinkActive="is-active">Token Lab</a>
         </nav>
 
         <ds-brand-theme-switcher />
